@@ -7,7 +7,7 @@ rm -rf venv dataset yolov5
 DRIVE_ID="1J79VQQolr-KMhWg5cYk0pjp3K9uIowkV"
 python3 -m venv ./venv
 source ./venv/bin/activate
-pip3 install gdown
+pip3 install gdown wheel
 
 mkdir dataset
 cd dataset
@@ -26,9 +26,11 @@ python ./custom-dataset-tools/dataset/YOLO_format.py \
 
 cd ..
 git clone https://github.com/ultralytics/yolov5
-pip3 install -r yolov5/requirements.txt
+pip3 install --pre torch torchvision torchaudio -f https://download.pytorch.org/whl/nightly/cu111/torch_nightly.html
+# pip3 install --pre torch torchvision -f https://download.pytorch.org/whl/nightly/cu110/torch_nightly.html -U
+pip3 install -r yolo_custom_requirements.txt
 
-#python3 -c 'import torch; print("Setup complete. Using torch %s %s" % (torch.__version__, torch.cuda.get_device_properties(0) if torch.cuda.is_available() else "CPU"))'
+python3 -c 'import torch; print("Setup complete. Using torch %s %s" % (torch.__version__, torch.cuda.get_device_properties(0) if torch.cuda.is_available() else "CPU"))'
 
 pwd
 python3 write_yaml.py
